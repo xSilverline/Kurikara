@@ -8,20 +8,26 @@ public class Simulator extends Thread
 
     ArrayList<Vampire> vampList = new ArrayList<>();
     ArrayList<Hunter> huntList = new ArrayList<>();
+    ArrayList<Villager> villList = new ArrayList<>();
     GUI screen;
-    Vampire v1 = new Vampire();
-    Vampire v2 = new Vampire();
+    int speed;
 
-    Simulator(GUI gui, int numOfVamps, int numOfHunt)
+
+    Simulator(GUI gui, int numOfVamps, int numOfHunt, int numOfVill,int power,int unit,int speed,int huntPower,int huntUnit)
     {
+        this.speed = speed;
         screen = gui;
         for(int i = 0;i<numOfVamps;i++)
         {
-            vampList.add(new Vampire());
+            vampList.add(new Vampire(unit,power));
         }
         for(int i = 0;i<numOfHunt;i++)
         {
-            huntList.add(new Hunter());
+            huntList.add(new Hunter(huntUnit,huntPower));
+        }
+        for(int i = 0;i<numOfVill;i++)
+        {
+            villList.add(new Villager());
         }
 
     }
@@ -40,10 +46,15 @@ public class Simulator extends Thread
             {
                 h.move();
             }
-            screen.setxy(vampList, huntList);
+
+            for (Villager n: villList)
+            {
+                n.move();
+            }
+            screen.setxy(vampList, huntList, villList);
             try
                     {
-                        sleep(100);
+                        sleep(100/speed);
                     }
                     catch (Exception E) {
                         throw new RuntimeException(E);

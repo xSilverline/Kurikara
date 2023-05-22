@@ -5,10 +5,12 @@ public class Vampire
     Movement movement;
     int x = 900, y = 900;
     int tx = 10, ty=10;
-    Vampire()
+    int unit,power;
+    Vampire(int unit,int power)
     {
          movement = new Movement();
-
+        this.unit = unit;
+        this.power = power;
     }
 
     public void move()

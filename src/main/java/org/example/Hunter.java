@@ -5,9 +5,12 @@ public class Hunter
     Movement movement;
     int x = 100, y = 100;
     int tx = 10, ty=10;
-    Hunter()
+    int power,unit;
+    Hunter(int unit,int power)
     {
         movement = new Movement();
+        this.power=power;
+        this.unit=unit;
     }
 
     public void move()

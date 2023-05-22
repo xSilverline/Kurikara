@@ -5,20 +5,21 @@ import java.util.ArrayList;
 
 public class GUI extends JPanel
 {
-    int x,y;
-    int vamps,hunts,villager;
+
     ArrayList<Vampire> vampList = new ArrayList<>();
     ArrayList<Hunter> huntList = new ArrayList<>();
+    ArrayList<Villager> villList = new ArrayList<>();
 
     GUI()
     {
         this.setPreferredSize(new Dimension(1020,1020));
     }
 
-    public void setxy(ArrayList<Vampire> v, ArrayList<Hunter> h)
+    public void setxy(ArrayList<Vampire> v, ArrayList<Hunter> h, ArrayList<Villager> n)
     {
         vampList = v;
         huntList = h;
+        villList = n;
     }
 
     public void paintComponent(Graphics g)
@@ -32,6 +33,10 @@ public class GUI extends JPanel
         gd.setColor(Color.blue);
         for (Hunter hunter : huntList) {
             gd.fillOval(hunter.x, hunter.y, 10, 10);
+        }
+        gd.setColor(Color.gray);
+        for (Villager villager : villList) {
+            gd.fillOval(villager.x, villager.y, 10, 10);
         }
 
     }

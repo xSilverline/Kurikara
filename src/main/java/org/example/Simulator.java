@@ -11,10 +11,16 @@ public class Simulator extends Thread
     ArrayList<Villager> villList = new ArrayList<>();
     GUI screen;
     int speed;
+    int currentX;
+    int currentY;
+    Tile currentTile;
+
+    Map map;
 
 
-    Simulator(GUI gui, int numOfVamps, int numOfHunt, int numOfVill,int power,int unit,int speed,int huntPower,int huntUnit)
+    Simulator(GUI gui,Map map, int numOfVamps, int numOfHunt, int numOfVill,int power,int unit,int speed,int huntPower,int huntUnit)
     {
+        this.map = map;
         this.speed = speed;
         screen = gui;
         for(int i = 0;i<numOfVamps;i++)
@@ -39,7 +45,21 @@ public class Simulator extends Thread
 
             for (Vampire v: vampList)
             {
+                currentX= v.getX()/10;
+                currentY= v.getY()/10;
+                currentTile= map.grid.get(currentX+currentY*100);
+                currentTile.removeEntity(v);
+
                 v.move();
+
+                currentX= v.getX()/10;
+                currentY= v.getY()/10;
+                currentTile= map.grid.get(currentX+currentY*100);
+                currentTile.addEntity(v);
+
+                v.setMove(map.grid.get(currentX+(currentY-1)*100).type,map.grid.get(currentX+(currentY+1)*100).type,map.grid.get(currentX-1+currentY*100).type,map.grid.get(currentX+1+currentY*100).type);
+
+
             }
 
             for (Hunter h: huntList)
@@ -51,10 +71,10 @@ public class Simulator extends Thread
             {
                 n.move();
             }
-            screen.setxy(vampList, huntList, villList);
+            screen.setxy(vampList, huntList, villList,currentTile);
             try
                     {
-                        sleep(100/speed);
+                        sleep(10000/speed);
                     }
                     catch (Exception E) {
                         throw new RuntimeException(E);

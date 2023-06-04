@@ -8,15 +8,16 @@ public class SimFrame extends JFrame implements ActionListener
 {
     SimFrame(int n, int v, int h, int power, int unit, int speed, int huntPower, int huntUnit)
     {
-        GUI gui = new GUI();
+        Map map = new Map();
+        GUI gui = new GUI(map);
         setResizable(false);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setSize(1030,1030);
+        setSize(1015,1040);
         setVisible(true);
         setLocationRelativeTo(null);
         add(gui);
 
-        Simulator sim = new Simulator(gui,v,h,n,power,unit,speed,huntPower,huntUnit); // zmienic na zmienna
+        Simulator sim = new Simulator(gui,map,v,h,n,power,unit,speed,huntPower,huntUnit); // zmienic na zmienna
 
 
         sim.start();

@@ -3,6 +3,7 @@ package org.example;
 public abstract class Charakter
 {
     Movement movement;
+    int unitID;
     int x , y ;
     int tx = 10, ty = 10;
     int unit,power;
@@ -11,8 +12,11 @@ public abstract class Charakter
 
     Charakter()
     {
+
         movement = new Movement();
     }
+
+
 
     public void move()
     {

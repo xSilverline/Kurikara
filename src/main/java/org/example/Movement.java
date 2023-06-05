@@ -11,14 +11,92 @@ public class Movement
     Movement()
     {
     }
-    public void goodmove(int x, int y, int left, int right, int up, int down)
+    public void goodmove(int x, int y, int left, int right, int up, int down,int lastmove)
     {
-        universalMove(x,y);
+        this.x = x;
+        this.y = y;
+        this.lastmove = lastmove;
+        switch (lastmove)
+        {
+            case 0 ->{
+                if(!isGoodUpBlocked(up) && !isGoodDownBlocked(down) && !isGoodLeftBlocked(left) && ! isGoodRightBlocked(right))
+                    decideFromThree(0,2,3,x,y); // Case - no path blocked, crossroad
+                if(!isGoodUpBlocked(up) && !isGoodDownBlocked(down) && isGoodLeftBlocked(left) && !isGoodRightBlocked(right))
+                    decideFromTwo(0,3,x,y); //Case - left is blocked, go up or right
+                if(!isGoodUpBlocked(up) && !isGoodDownBlocked(down) && !isGoodLeftBlocked(left) && isGoodRightBlocked(right))
+                    decideFromTwo(0,2,x,y); // Case - right is blocked, go up or left
+                if(isGoodUpBlocked(up) && !isGoodDownBlocked(down)  && !isGoodLeftBlocked(left) && !isGoodRightBlocked(right))
+                    decideFromTwo(2,3,x,y); // Case - Up is blocked, go left or right
+                if(isGoodUpBlocked(up) && !isGoodDownBlocked(down) && !isGoodLeftBlocked(left) && isGoodRightBlocked(right))
+                    goLeft(x); // Case - only left
+                if(isGoodUpBlocked(up) && !isGoodDownBlocked(down) && isGoodLeftBlocked(left) && !isGoodRightBlocked(right))
+                    goRight(x); // Case - only right
+                if(!isGoodUpBlocked(up) && !isGoodDownBlocked(down) && isGoodLeftBlocked(left) && isGoodRightBlocked(right))
+                    goUp(y); // Case - only Up
+                if(isGoodUpBlocked(up) && !isGoodDownBlocked(down) && isGoodLeftBlocked(left) && isGoodRightBlocked(right))
+                    goDown(y); // Case - go back
 
-        if((x<=10 && tx<0) || (x>=990 && tx>0))
-            tx*=-1;
-        if((y<=10 && ty<0) || (y>=990 && ty>0))
-            ty*=-1;
+
+            }
+            case 1 ->{
+                if(!isGoodUpBlocked(up) && !isGoodDownBlocked(down) && !isGoodLeftBlocked(left) && ! isGoodRightBlocked(right))
+                    decideFromThree(1,2,3,x,y); // Case - no path blocked, crossroad
+                if(!isGoodUpBlocked(up) && !isGoodDownBlocked(down) && isGoodLeftBlocked(left) && !isGoodRightBlocked(right))
+                    decideFromTwo(1,3,x,y); //Case - left is blocked, go down or right
+                if(!isGoodUpBlocked(up) && !isGoodDownBlocked(down) && !isGoodLeftBlocked(left) && isGoodRightBlocked(right))
+                    decideFromTwo(1,2,x,y); // Case - right is blocked, go down or left
+                if(!isGoodUpBlocked(up) && isGoodDownBlocked(down)  && !isGoodLeftBlocked(left) && !isGoodRightBlocked(right))
+                    decideFromTwo(2,3,x,y); // Case - down is blocked, go left or right
+                if(!isGoodUpBlocked(up) && isGoodDownBlocked(down) && !isGoodLeftBlocked(left) && isGoodRightBlocked(right))
+                    goLeft(x); // Case - only left
+                if(!isGoodUpBlocked(up) && isGoodDownBlocked(down) && isGoodLeftBlocked(left) && !isGoodRightBlocked(right))
+                    goRight(x); // Case - only right
+                if(!isGoodUpBlocked(up) && !isGoodDownBlocked(down) && isGoodLeftBlocked(left) && isGoodRightBlocked(right))
+                    goDown(y); // Case - only down
+                if(!isGoodUpBlocked(up) && isGoodDownBlocked(down) && isGoodLeftBlocked(left) && isGoodRightBlocked(right))
+                    goUp(y); // Case - go back
+
+            }
+            case 2 ->{
+                if(!isGoodUpBlocked(up) && !isGoodDownBlocked(down) && !isGoodLeftBlocked(left) && ! isGoodRightBlocked(right))
+                    decideFromThree(0,1,2,x,y); // Case - no path blocked, crossroad
+                if(!isGoodUpBlocked(up) && isGoodDownBlocked(down) && !isGoodLeftBlocked(left) && !isGoodRightBlocked(right))
+                    decideFromTwo(0,2,x,y); //Case - down is blocked, go up or left
+                if(!isGoodUpBlocked(up) && !isGoodDownBlocked(down) && isGoodLeftBlocked(left) && !isGoodRightBlocked(right))
+                    decideFromTwo(0,1,x,y); // Case - left is blocked, go up or down
+                if(isGoodUpBlocked(up) && !isGoodDownBlocked(down)  && !isGoodLeftBlocked(left) && !isGoodRightBlocked(right))
+                    decideFromTwo(2,1,x,y); // Case - Up is blocked, go left or down
+                if(isGoodUpBlocked(up) && !isGoodDownBlocked(down) && isGoodLeftBlocked(left) && !isGoodRightBlocked(right))
+                    goDown(y); // Case - only down
+                if(!isGoodUpBlocked(up) && isGoodDownBlocked(down) && isGoodLeftBlocked(left) && !isGoodRightBlocked(right))
+                    goUp(y); // Case - only up
+                if(isGoodUpBlocked(up) && isGoodDownBlocked(down) && !isGoodLeftBlocked(left) && !isGoodRightBlocked(right))
+                    goLeft(x); // Case - only left
+                if(isGoodUpBlocked(up) && isGoodDownBlocked(down) && isGoodLeftBlocked(left) && !isGoodRightBlocked(right))
+                    goRight(x); // Case - go back
+
+            }
+            case 3 ->{
+                if(!isGoodUpBlocked(up) && !isGoodDownBlocked(down) && !isGoodLeftBlocked(left) && ! isGoodRightBlocked(right))
+                    decideFromThree(0,1,3,x,y); // Case - no path blocked, crossroad
+                if(!isGoodUpBlocked(up) && isGoodDownBlocked(down) && !isGoodLeftBlocked(left) && !isGoodRightBlocked(right))
+                    decideFromTwo(0,3,x,y); //Case - down is blocked, go up or right
+                if(!isGoodUpBlocked(up) && !isGoodDownBlocked(down) && !isGoodLeftBlocked(left) && isGoodRightBlocked(right))
+                    decideFromTwo(0,1,x,y); // Case - right is blocked, go up or down
+                if(isGoodUpBlocked(up) && !isGoodDownBlocked(down)  && !isGoodLeftBlocked(left) && !isGoodRightBlocked(right))
+                    decideFromTwo(3,1,x,y); // Case - Up is blocked, go right or down
+                if(isGoodUpBlocked(up) && !isGoodDownBlocked(down) && !isGoodLeftBlocked(left) && isGoodRightBlocked(right))
+                    goDown(y); // Case - only down
+                if(!isGoodUpBlocked(up) && isGoodDownBlocked(down) && !isGoodLeftBlocked(left) && isGoodRightBlocked(right))
+                    goUp(y); // Case - only up
+                if(isGoodUpBlocked(up) && isGoodDownBlocked(down) && !isGoodLeftBlocked(left) && !isGoodRightBlocked(right))
+                    goRight(x); // Case - only right
+                if(isGoodUpBlocked(up) && isGoodDownBlocked(down) && !isGoodLeftBlocked(left) && !isGoodRightBlocked(right))
+                    goLeft(x); // Case - go back
+
+            }
+
+        }
     }
 
     public void evilmove(int x, int y, int left, int right, int up, int down, int lastmove)
@@ -29,69 +107,81 @@ public class Movement
         switch (lastmove)
         {
             case 0 ->{
-                if(!isEvilUpBlocked(up) && isEvilLeftBlocked(left) && isEvilRightBlocked(right))
-                    goUp(y);
-                else if (isEvilUpBlocked(up) && isEvilLeftBlocked(left) && isEvilRightBlocked(right))
-                    goDown(y);
-                else if (!isEvilUpBlocked(up) && !isEvilLeftBlocked(left) && !isEvilRightBlocked(right))
-                    decideFromThree(up,left,right,x,y);
-                else if (!isEvilUpBlocked(up) && !isEvilLeftBlocked(left))
-                    decideFromTwo(up,left,x,y);
-                else if (!isEvilUpBlocked(up) && !isEvilRightBlocked(right))
-                    decideFromTwo(up,right,x,y);
-                else if (!isEvilRightBlocked(right))
-                    goRight(x);
-                else if (!isEvilLeftBlocked(left))
-                    goLeft(x);
+                if(!isEvilUpBlocked(up) && !isEvilDownBlocked(down) && !isEvilLeftBlocked(left) && ! isEvilRightBlocked(right))
+                    decideFromThree(0,2,3,x,y); // Case - no path blocked, crossroad
+                if(!isEvilUpBlocked(up) && !isEvilDownBlocked(down) && isEvilLeftBlocked(left) && !isEvilRightBlocked(right))
+                    decideFromTwo(0,3,x,y); //Case - left is blocked, go up or right
+                if(!isEvilUpBlocked(up) && !isEvilDownBlocked(down) && !isEvilLeftBlocked(left) && isEvilRightBlocked(right))
+                    decideFromTwo(0,2,x,y); // Case - right is blocked, go up or left
+                if(isEvilUpBlocked(up) && !isEvilDownBlocked(down)  && !isEvilLeftBlocked(left) && !isEvilRightBlocked(right))
+                    decideFromTwo(2,3,x,y); // Case - Up is blocked, go left or right
+                if(isEvilUpBlocked(up) && !isEvilDownBlocked(down) && !isEvilLeftBlocked(left) && isEvilRightBlocked(right))
+                    goLeft(x); // Case - only left
+                if(isEvilUpBlocked(up) && !isEvilDownBlocked(down) && isEvilLeftBlocked(left) && !isEvilRightBlocked(right))
+                    goRight(x); // Case - only right
+                if(!isEvilUpBlocked(up) && !isEvilDownBlocked(down) && isEvilLeftBlocked(left) && isEvilRightBlocked(right))
+                    goUp(y); // Case - only Up
+                if(isEvilUpBlocked(up) && !isEvilDownBlocked(down) && isEvilLeftBlocked(left) && isEvilRightBlocked(right))
+                    goDown(y); // Case - go back
+
 
             }
             case 1 ->{
-                if(!isEvilDownBlocked(down) && isEvilLeftBlocked(left) && isEvilRightBlocked(right))
-                    goDown(y);
-                else if (isEvilDownBlocked(down) && isEvilLeftBlocked(left) && isEvilRightBlocked(right))
-                    goUp(y);
-                else if (!isEvilDownBlocked(down) && !isEvilLeftBlocked(left) && !isEvilRightBlocked(right))
-                    decideFromThree(down,left,right,x,y);
-                else if (!isEvilDownBlocked(down) && !isEvilLeftBlocked(left))
-                    decideFromTwo(down,left,x,y);
-                else if (!isEvilDownBlocked(down) && !isEvilRightBlocked(right))
-                    decideFromTwo(down,right,x,y);
-                else if (!isEvilRightBlocked(right))
-                    goRight(x);
-                else if (!isEvilLeftBlocked(left))
-                    goLeft(x);
+                if(!isEvilUpBlocked(up) && !isEvilDownBlocked(down) && !isEvilLeftBlocked(left) && ! isEvilRightBlocked(right))
+                    decideFromThree(1,2,3,x,y); // Case - no path blocked, crossroad
+                if(!isEvilUpBlocked(up) && !isEvilDownBlocked(down) && isEvilLeftBlocked(left) && !isEvilRightBlocked(right))
+                    decideFromTwo(1,3,x,y); //Case - left is blocked, go down or right
+                if(!isEvilUpBlocked(up) && !isEvilDownBlocked(down) && !isEvilLeftBlocked(left) && isEvilRightBlocked(right))
+                    decideFromTwo(1,2,x,y); // Case - right is blocked, go down or left
+                if(!isEvilUpBlocked(up) && isEvilDownBlocked(down)  && !isEvilLeftBlocked(left) && !isEvilRightBlocked(right))
+                    decideFromTwo(2,3,x,y); // Case - down is blocked, go left or right
+                if(!isEvilUpBlocked(up) && isEvilDownBlocked(down) && !isEvilLeftBlocked(left) && isEvilRightBlocked(right))
+                    goLeft(x); // Case - only left
+                if(!isEvilUpBlocked(up) && isEvilDownBlocked(down) && isEvilLeftBlocked(left) && !isEvilRightBlocked(right))
+                    goRight(x); // Case - only right
+                if(!isEvilUpBlocked(up) && !isEvilDownBlocked(down) && isEvilLeftBlocked(left) && isEvilRightBlocked(right))
+                    goDown(y); // Case - only down
+                if(!isEvilUpBlocked(up) && isEvilDownBlocked(down) && isEvilLeftBlocked(left) && isEvilRightBlocked(right))
+                    goUp(y); // Case - go back
+
             }
             case 2 ->{
-                if(!isEvilLeftBlocked(left) && isEvilUpBlocked(up) && isEvilDownBlocked(down))
-                    goLeft(x);
-                else if (isEvilLeftBlocked(left) && isEvilUpBlocked(up) && isEvilDownBlocked(down))
-                    goRight(x);
-                else if (!isEvilLeftBlocked(left) && !isEvilUpBlocked(up) && !isEvilDownBlocked(down))
-                    decideFromThree(left,up,down,x,y);
-                else if (!isEvilLeftBlocked(left) && !isEvilUpBlocked(up))
-                    decideFromTwo(left,up,x,y);
-                else if (!isEvilLeftBlocked(left) && !isEvilDownBlocked(down))
-                    decideFromTwo(left,down,x,y);
-                else if (!isEvilUpBlocked(up))
-                    goUp(y);
-                else if (!isEvilDownBlocked(down))
-                    goDown(y);
+                if(!isEvilUpBlocked(up) && !isEvilDownBlocked(down) && !isEvilLeftBlocked(left) && ! isEvilRightBlocked(right))
+                    decideFromThree(0,1,2,x,y); // Case - no path blocked, crossroad
+                if(!isEvilUpBlocked(up) && isEvilDownBlocked(down) && !isEvilLeftBlocked(left) && !isEvilRightBlocked(right))
+                    decideFromTwo(0,2,x,y); //Case - down is blocked, go up or left
+                if(!isEvilUpBlocked(up) && !isEvilDownBlocked(down) && isEvilLeftBlocked(left) && !isEvilRightBlocked(right))
+                    decideFromTwo(0,1,x,y); // Case - left is blocked, go up or down
+                if(isEvilUpBlocked(up) && !isEvilDownBlocked(down)  && !isEvilLeftBlocked(left) && !isEvilRightBlocked(right))
+                    decideFromTwo(2,1,x,y); // Case - Up is blocked, go left or down
+                if(isEvilUpBlocked(up) && !isEvilDownBlocked(down) && isEvilLeftBlocked(left) && !isEvilRightBlocked(right))
+                    goDown(y); // Case - only down
+                if(!isEvilUpBlocked(up) && isEvilDownBlocked(down) && isEvilLeftBlocked(left) && !isEvilRightBlocked(right))
+                    goUp(y); // Case - only up
+                if(isEvilUpBlocked(up) && isEvilDownBlocked(down) && !isEvilLeftBlocked(left) && !isEvilRightBlocked(right))
+                    goLeft(x); // Case - only left
+                if(isEvilUpBlocked(up) && isEvilDownBlocked(down) && isEvilLeftBlocked(left) && !isEvilRightBlocked(right))
+                    goRight(x); // Case - go back
+
             }
             case 3 ->{
-                if(!isEvilRightBlocked(right) && isEvilUpBlocked(up) && isEvilDownBlocked(down))
-                    goRight(x);
-                else if (isEvilRightBlocked(right) && isEvilUpBlocked(up) && isEvilDownBlocked(down))
-                    goLeft(x);
-                else if (!isEvilRightBlocked(right) && !isEvilUpBlocked(up) && !isEvilDownBlocked(down))
-                    decideFromThree(right,up,down,x,y);
-                else if (!isEvilRightBlocked(right) && !isEvilUpBlocked(up))
-                    decideFromTwo(right,up,x,y);
-                else if (!isEvilRightBlocked(right) && !isEvilDownBlocked(down))
-                    decideFromTwo(right,down,x,y);
-                else if (!isEvilUpBlocked(up))
-                    goUp(y);
-                else if (!isEvilDownBlocked(down))
-                    goDown(y);
+                if(!isEvilUpBlocked(up) && !isEvilDownBlocked(down) && !isEvilLeftBlocked(left) && ! isEvilRightBlocked(right))
+                    decideFromThree(0,1,3,x,y); // Case - no path blocked, crossroad
+                if(!isEvilUpBlocked(up) && isEvilDownBlocked(down) && !isEvilLeftBlocked(left) && !isEvilRightBlocked(right))
+                    decideFromTwo(0,3,x,y); //Case - down is blocked, go up or right
+                if(!isEvilUpBlocked(up) && !isEvilDownBlocked(down) && !isEvilLeftBlocked(left) && isEvilRightBlocked(right))
+                    decideFromTwo(0,1,x,y); // Case - right is blocked, go up or down
+                if(isEvilUpBlocked(up) && !isEvilDownBlocked(down)  && !isEvilLeftBlocked(left) && !isEvilRightBlocked(right))
+                    decideFromTwo(3,1,x,y); // Case - Up is blocked, go right or down
+                if(isEvilUpBlocked(up) && !isEvilDownBlocked(down) && !isEvilLeftBlocked(left) && isEvilRightBlocked(right))
+                    goDown(y); // Case - only down
+                if(!isEvilUpBlocked(up) && isEvilDownBlocked(down) && !isEvilLeftBlocked(left) && isEvilRightBlocked(right))
+                    goUp(y); // Case - only up
+                if(isEvilUpBlocked(up) && isEvilDownBlocked(down) && !isEvilLeftBlocked(left) && !isEvilRightBlocked(right))
+                    goRight(x); // Case - only right
+                if(isEvilUpBlocked(up) && isEvilDownBlocked(down) && !isEvilLeftBlocked(left) && !isEvilRightBlocked(right))
+                    goLeft(x); // Case - go back
+
             }
 
         }

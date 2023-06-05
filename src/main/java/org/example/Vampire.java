@@ -2,14 +2,18 @@ package org.example;
 
 public class Vampire extends Charakter {
     Movement movement;
+    int unitID;
     int x = 910, y = 940;
     int tx = 10, ty=10;
     int unit,power;
     int type = 1;
+    int transofrms;
     int left,right,forw,back;
+    int leftid,rightid,upid,downid;
     int lastmove;
-    Vampire(int unit,int power)
+    Vampire(int unit,int power,int unitID)
     {
+        this.unitID = unitID;
         movement = new Movement();
         this.unit = unit;
         this.power = power;
@@ -18,6 +22,8 @@ public class Vampire extends Charakter {
         forw=3;
         back=3;
         lastmove = 0;
+        transofrms = 1;
+
     }
 
     public void move()
@@ -30,12 +36,16 @@ public class Vampire extends Charakter {
         ty = movement.ty;
     }
 
-    void setMove(int forw, int back, int left, int right)
+    void setMove(int forw,int upid, int back, int downid,int left, int leftid, int right, int rightid)
     {
         this.left=left;
         this.right = right;
         this.forw = forw;
         this.back = back;
+        this.upid = upid;
+        this.downid = downid;
+        this.leftid = leftid;
+        this.rightid = rightid;
     }
 
     int getX()
@@ -46,6 +56,11 @@ public class Vampire extends Charakter {
     int getY()
     {
         return y;
+    }
+
+    void setTransofrms(int t)
+    {
+        transofrms = t;
     }
 
 }

@@ -66,12 +66,12 @@ public class GUI extends JPanel
         for (Hunter hunter : huntList) {
             gd.fillOval(hunter.x, hunter.y, 10, 10);
         }
-        gd.setColor(Color.gray);
+        gd.setColor(Color.yellow);
         for (Villager villager : villList) {
             gd.fillOval(villager.x, villager.y, 10, 10);
         }
-        gd.setColor(Color.yellow);
-        gd.fillRect(tile1.x*10, tile1.y*10, 10,10);
+//        gd.setColor(Color.yellow);
+//        gd.fillRect(tile1.x*10, tile1.y*10, 10,10);
 
 
     }

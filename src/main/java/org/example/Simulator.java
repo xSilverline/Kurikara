@@ -16,11 +16,18 @@ public class Simulator extends Thread
     ArrayList<Integer> vampHistogram = new ArrayList<>();
     ArrayList<Integer> huntHistogram = new ArrayList<>();
     ArrayList<Integer> villHistogram = new ArrayList<>();
+    ArrayList<Integer> vampkillHistogram = new ArrayList<>();
+    ArrayList<Integer> huntkillHistogram = new ArrayList<>();
+    ArrayList<Integer> villkillHistogram = new ArrayList<>();
+    ArrayList<Integer> vampTransHistogram = new ArrayList<>();
+    ArrayList<Integer> huntTransHistogram = new ArrayList<>();
+    ArrayList<Integer> dayHistory = new ArrayList<>();
     GUI screen;
     int speed;
     int currentX;
     int currentY;
     Tile currentTile;
+    String winners;
 
     int timer;
     int totalTimer;
@@ -30,12 +37,14 @@ public class Simulator extends Thread
     int killedVamps;
     int killedVillagers;
     int killedHunters;
+    SimFrame frame;
 
     Map map;
 
 
-    Simulator(GUI gui,Map map, int numOfVamps, int numOfHunt, int numOfVill,int power,int unit,int speed,int huntPower,int huntUnit)
+    Simulator(GUI gui,Map map, int numOfVamps, int numOfHunt, int numOfVill,int power,int unit,int speed,int huntPower,int huntUnit,SimFrame frame)
     {
+        this.frame = frame;
         this.map = map;
         this.speed = speed;
         screen = gui;
@@ -126,6 +135,12 @@ public class Simulator extends Thread
             vampHistogram.add(vampList.size());
             huntHistogram.add(huntList.size());
             villHistogram.add(villList.size());
+            vampkillHistogram.add(killedVamps);
+            villkillHistogram.add(killedVillagers);
+            huntkillHistogram.add(killedHunters);
+            vampTransHistogram.add(transformedToVamp);
+            huntTransHistogram.add(transformedToHunt);
+            dayHistory.add(days);
             timer++;
             totalTimer++;
             if(timer == 3600)
@@ -149,14 +164,18 @@ public class Simulator extends Thread
                 System.out.println("K-Hunts: "+killedHunters);
                 System.out.println("T-Hunts: "+transformedToHunt);
                 System.out.println("K-Vills: "+killedVillagers);
-                System.out.println("Days: "+days);
+                System.out.println("Days: "+totalTimer);
 
-                if(villList.isEmpty())
-                    System.out.println("Winner: Vamps");
+                if(huntList.isEmpty())
+                    winners = "Wampiry";
                 else
-                    System.out.println("Winner: Hunters");
+                    winners = "Lowcy";
 
                 try {
+                    sleep(1000);
+
+                    frame.dispose();
+                    new Summary(totalTimer,days,killedVillagers,killedVamps,killedHunters,transformedToHunt,transformedToVamp,winners,villHistogram,vampHistogram,huntHistogram,villkillHistogram,vampkillHistogram,huntkillHistogram,vampTransHistogram,huntTransHistogram,dayHistory);
                     wait();
 
 
@@ -193,7 +212,7 @@ public class Simulator extends Thread
                 currentTile.addHunter(newHunter);
 
                 transformedToHunt++;
-                System.err.println("REKRU!!!");
+//                System.err.println("REKRU!!!");
             }
         }
 
@@ -244,7 +263,7 @@ public class Simulator extends Thread
                     vampClone.add(newVamp);
                     currentTile.addVampier(newVamp);
 
-                    System.err.println("Transformer! "+vampList.size()+" "+vampClone.size());
+//                    System.err.println("Transformer! "+vampList.size()+" "+vampClone.size());
                     transformedToVamp++;
                 }
                 if(attackedVillager.type == 3)
@@ -252,7 +271,7 @@ public class Simulator extends Thread
                     currentTile.removeVillager(attackedVillager);
                     villList.remove(attackedVillager);
 
-                    System.err.println("Deded! "+villList.size());
+//                    System.err.println("Deded! "+villList.size());
                     killedVillagers++;
                 }
             }

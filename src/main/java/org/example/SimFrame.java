@@ -15,9 +15,11 @@ public class SimFrame extends JFrame implements ActionListener
         setSize(1015,1040);
         setVisible(true);
         setLocationRelativeTo(null);
+        JMenuBar menuBar = new JMenuBar();
+        this.setJMenuBar(menuBar);
         add(gui);
 
-        Simulator sim = new Simulator(gui,map,v,h,n,power,unit,speed,huntPower,huntUnit); // zmienic na zmienna
+        Simulator sim = new Simulator(gui,map,v,h,n,power,unit,speed,huntPower,huntUnit,this); // zmienic na zmienna
 
 
         sim.start();

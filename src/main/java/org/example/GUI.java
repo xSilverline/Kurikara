@@ -4,6 +4,8 @@ import javax.swing.border.Border;
 import java.awt.*;
 import java.util.ArrayList;
 
+
+
 public class GUI extends JPanel
 {
 
@@ -31,7 +33,7 @@ public class GUI extends JPanel
 
     }
 
-    public void paintComponent(Graphics g)
+    public synchronized void paintComponent(Graphics g)
     {
         super.paintComponent(g);
         Graphics2D gd = (Graphics2D) g;

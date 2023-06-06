@@ -143,6 +143,10 @@ public class Tile
 
     private boolean succesfulRecru(Hunter h)
     {
+        if(h.unit == 0)
+            return false;
+        if(h.unit == 100)
+            return true;
         if(rand.nextInt(100) <=h.unit)
             return true;
         return false;
@@ -152,6 +156,10 @@ public class Tile
 
     private boolean tranform(Vampire vamp)
     {
+        if(vamp.unit == 0)
+            return false;
+        if(vamp.unit == 100)
+            return true;
         if(rand.nextInt(100) <= vamp.unit)
             return true;
         return false;

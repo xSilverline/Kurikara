@@ -91,7 +91,7 @@ public class Movement
                     goUp(y); // Case - only up
                 if(isGoodUpBlocked(up) && isGoodDownBlocked(down) && !isGoodLeftBlocked(left) && !isGoodRightBlocked(right))
                     goRight(x); // Case - only right
-                if(isGoodUpBlocked(up) && isGoodDownBlocked(down) && !isGoodLeftBlocked(left) && !isGoodRightBlocked(right))
+                if(isGoodUpBlocked(up) && isGoodDownBlocked(down) && !isGoodLeftBlocked(left) && isGoodRightBlocked(right))
                     goLeft(x); // Case - go back
 
             }
@@ -179,7 +179,7 @@ public class Movement
                     goUp(y); // Case - only up
                 if(isEvilUpBlocked(up) && isEvilDownBlocked(down) && !isEvilLeftBlocked(left) && !isEvilRightBlocked(right))
                     goRight(x); // Case - only right
-                if(isEvilUpBlocked(up) && isEvilDownBlocked(down) && !isEvilLeftBlocked(left) && !isEvilRightBlocked(right))
+                if(isEvilUpBlocked(up) && isEvilDownBlocked(down) && !isEvilLeftBlocked(left) && isEvilRightBlocked(right))
                     goLeft(x); // Case - go back
 
             }

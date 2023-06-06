@@ -91,7 +91,11 @@ public class Tile
             charakter.type = 1;
         }
         else
+        {
             charakter.type = 3;
+            vamp.addKill();
+        }
+
         return charakter;
     }
 
@@ -101,14 +105,47 @@ public class Tile
         if(vamp.transofrms == 1 && tranform(vamp) && charakter.power < vamp.power)
         {
             vamp.transofrms = 0;
+
             charakter.type = 1;
             return charakter;
+        }
+        if(charakter.power == vamp.power)
+        {
+            int i = rand.nextInt(2)%2;
+            if(i == 0)
+            {
+                charakter.type = 3;
+                vamp.addKill();
+            }
+
         }
         if(charakter.power < vamp.power)
         {
             charakter.type = 3;
+            vamp.addKill();
         }
+//        else
+//            charakter.addKill();
         return charakter;
+    }
+
+    Villager hunterRecruitment(Hunter hunter)
+    {
+        Villager recruit = villagers.get(0);
+        if(hunter.recruitments == 1 && succesfulRecru(hunter))
+        {
+            hunter.recruitments = 0;
+            recruit.type = 2;
+            return recruit;
+        }
+        return recruit;
+    }
+
+    private boolean succesfulRecru(Hunter h)
+    {
+        if(rand.nextInt(100) <=h.unit)
+            return true;
+        return false;
     }
 
 

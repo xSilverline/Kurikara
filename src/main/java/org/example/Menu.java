@@ -72,7 +72,7 @@ public class Menu extends JFrame implements ActionListener, ChangeListener
         this.add(huntNumber);
 
         powerSlider = new JSlider(1,10,10);
-        powerSlider.setBounds(150,300,200,50);
+        powerSlider.setBounds(250,300,200,50);
         powerSlider.setPaintTicks(true);
         powerSlider.setMinorTickSpacing(1);
         powerSlider.setPaintTrack(true);
@@ -82,7 +82,7 @@ public class Menu extends JFrame implements ActionListener, ChangeListener
         this.add(powerSlider);
 
         huntPowerSlider = new JSlider(1,10,10);
-        huntPowerSlider.setBounds(150,350,200,50);
+        huntPowerSlider.setBounds(250,350,200,50);
         huntPowerSlider.setPaintTicks(true);
         huntPowerSlider.setMinorTickSpacing(1);
         huntPowerSlider.setPaintTrack(true);
@@ -93,7 +93,7 @@ public class Menu extends JFrame implements ActionListener, ChangeListener
 
 
         speedSlider = new JSlider(1,10,10);
-        speedSlider.setBounds(150,400,200,50);
+        speedSlider.setBounds(250,400,200,50);
         speedSlider.setPaintTicks(true);
         speedSlider.setMinorTickSpacing(1);
         speedSlider.setPaintTrack(true);
@@ -103,7 +103,7 @@ public class Menu extends JFrame implements ActionListener, ChangeListener
         this.add(speedSlider);
 
         unitSlider = new JSlider(0,100,10);
-        unitSlider.setBounds(150,450,200,50);
+        unitSlider.setBounds(250,450,300,50);
         unitSlider.setPaintTicks(true);
         unitSlider.setMinorTickSpacing(1);
         unitSlider.setPaintTrack(true);
@@ -113,7 +113,7 @@ public class Menu extends JFrame implements ActionListener, ChangeListener
         this.add(unitSlider);
 
         huntUnitSlider = new JSlider(0,100,10);
-        huntUnitSlider.setBounds(150,500,200,50);
+        huntUnitSlider.setBounds(250,500,300,50);
         huntUnitSlider.setPaintTicks(true);
         huntUnitSlider.setMinorTickSpacing(1);
         huntUnitSlider.setPaintTrack(true);
@@ -125,13 +125,13 @@ public class Menu extends JFrame implements ActionListener, ChangeListener
 
 // __________________________________________________ LABELS ______________________________________________
         powerLabel = new JLabel();
-        powerLabel.setBounds(30,300,150,30);
-        powerLabel.setText("Moc Startowa: "+ powerSlider.getValue());
+        powerLabel.setBounds(30,300,250,30);
+        powerLabel.setText("Moc Startowa Wampirow: "+ powerSlider.getValue());
         this.add(powerLabel);
 
         huntPowerLabel = new JLabel();
-        huntPowerLabel.setBounds(30,350,150,30);
-        huntPowerLabel.setText("Moc Startowa: "+ huntPowerSlider.getValue());
+        huntPowerLabel.setBounds(30,350,250,30);
+        huntPowerLabel.setText("Moc Startowa Lowcow: "+ huntPowerSlider.getValue());
         this.add(huntPowerLabel);
 
         villLabel = new JLabel("Liczba wiesniakow");
@@ -144,18 +144,18 @@ public class Menu extends JFrame implements ActionListener, ChangeListener
         huntLabel.setBounds(30,200,150,30);
 
         speedLabel = new JLabel();
-        speedLabel.setBounds(30,400,150,30);
+        speedLabel.setBounds(30,400,250,30);
         speedLabel.setText("Zmiana czasu x"+ speedSlider.getValue());
         this.add(speedLabel);
 
         unitLabel = new JLabel();
-        unitLabel.setBounds(30,450,150,30);
-        unitLabel.setText("Wsp. jednostek "+ unitSlider.getValue()+"%");
+        unitLabel.setBounds(30,450,250,30);
+        unitLabel.setText("Wsp. jednostek Wampirow "+ unitSlider.getValue()+"%");
         this.add(unitLabel);
 
         huntUnitLabel = new JLabel();
-        huntUnitLabel.setBounds(30,500,150,30);
-        huntUnitLabel.setText("Wsp. jednostek "+ huntUnitSlider.getValue()+"%");
+        huntUnitLabel.setBounds(30,500,250,30);
+        huntUnitLabel.setText("Wsp. jednostek Lowcow "+ huntUnitSlider.getValue()+"%");
         this.add(huntUnitLabel);
 
 
@@ -192,14 +192,14 @@ public class Menu extends JFrame implements ActionListener, ChangeListener
     public void stateChanged(ChangeEvent e)
     {
         if(e.getSource()==powerSlider)
-            powerLabel.setText("Moc Startowa: "+ powerSlider.getValue());
+            powerLabel.setText("Moc Startowa Wampirow: "+ powerSlider.getValue());
         if(e.getSource() == speedSlider)
             speedLabel.setText("Zmiana czasu x"+ speedSlider.getValue());
         if(e.getSource() == unitSlider)
-            unitLabel.setText("Wsp. jednostek "+ unitSlider.getValue()+"%");
+            unitLabel.setText("Wsp. jednostek Wampirow "+ unitSlider.getValue()+"%");
         if(e.getSource() == huntUnitSlider)
-            huntUnitLabel.setText("Wsp. jednostek "+ huntUnitSlider.getValue()+"%");
+            huntUnitLabel.setText("Wsp. jednostek Lowcow "+ huntUnitSlider.getValue()+"%");
         if(e.getSource()==huntPowerSlider)
-            huntPowerLabel.setText("Moc Startowa: "+ huntPowerSlider.getValue());
+            huntPowerLabel.setText("Moc Startowa Lowcow: "+ huntPowerSlider.getValue());
     }
 }

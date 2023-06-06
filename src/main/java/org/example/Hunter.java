@@ -4,11 +4,14 @@ public class Hunter extends Charakter
 {
     Movement movement;
     int unitID;
-    int x = 100, y = 100;
+    int x = 50, y = 50;
     int tx = 10, ty=10;
     int power,unit;
     int lastmove;
     int leftid,rightid,upid,downid;
+    int killstreak=0;
+
+    int recruitments = 1;
 
     int type = 2;
     Hunter(int unit,int power, int unitID)
@@ -52,6 +55,13 @@ public class Hunter extends Charakter
     int getY()
     {
         return y;
+    }
+
+    void addKill()
+    {
+        killstreak++;
+        if(power<10 && killstreak%10 == 0)
+            power++;
     }
 
 }

@@ -11,6 +11,7 @@ public class Vampire extends Charakter {
     int left,right,forw,back;
     int leftid,rightid,upid,downid;
     int lastmove;
+    int killstreak;
     Vampire(int unit,int power,int unitID)
     {
         this.unitID = unitID;
@@ -58,9 +59,11 @@ public class Vampire extends Charakter {
         return y;
     }
 
-    void setTransofrms(int t)
+    void addKill()
     {
-        transofrms = t;
+        killstreak++;
+        if(killstreak%10 == 0 && power<10)
+            power++;
     }
 
 }

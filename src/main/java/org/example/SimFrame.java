@@ -1,46 +1,53 @@
 package org.example;
 
 import javax.swing.*;
-import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
-public class SimFrame extends JFrame implements ActionListener
+
+/**
+ * Class SimFrame is used to create window in which simulation will be shown.
+ * When created, sets all properties of window, also used to launch simulation with parameters from class Menu
+ */
+public class SimFrame extends JFrame
 {
-    JButton nuke;
+
+    /**
+     * New simulation
+     */
     Simulator sim;
+
+    /**
+     *
+     * @param n number of villagers
+     * @param v number of vampires
+     * @param h number of hunters
+     * @param power initial power of vampires
+     * @param unit probability of transforming into vampire
+     * @param speed time acceleration
+     * @param huntPower initial power of hunters
+     * @param huntUnit probability of transforming into hunter
+     */
     SimFrame(int n, int v, int h, int power, int unit, int speed, int huntPower, int huntUnit)
     {
+        /**
+         * Setting new map for simulation
+         */
         Map map = new Map();
+        /**
+         * Creating panel on which map and all entities will be shown
+         */
         GUI gui = new GUI(map);
         setResizable(true);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setSize(1055,1040);
+        setSize(1015,1035);
         setVisible(true);
         setLocationRelativeTo(null);
-        this.setLayout(new FlowLayout());
 
-        nuke = new JButton("NUKE");
-        nuke.setBounds(1020,0,30,30);
-        nuke.setBackground(Color.red);
-        nuke.setForeground(Color.white);
-        nuke.addActionListener(this);
         add(gui);
-        add(nuke);
 
         sim = new Simulator(gui,map,v,h,n,power,unit,speed,huntPower,huntUnit,this);
-
 
         sim.start();
 
     }
-    @Override
-    public void actionPerformed(ActionEvent e)
-    {
-        if(e.getSource() == nuke)
-        {
-            System.err.println("Nuke");
-            sim.nukeIt();
-        }
-    }
+
 }

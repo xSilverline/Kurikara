@@ -8,20 +8,65 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.NumberFormat;
-
+/**
+ * Class Menu shows window with fields that allow user to set some properties with which simulation should start
+ * This window is disposed after launch of simulation
+ */
 public class Menu extends JFrame implements ActionListener, ChangeListener
 {
+    /**
+     * JButton used to start simulation
+     */
     JButton startButton;
+    /**
+     * JButton used to exit simulation
+     */
     JButton exitButton;
+    /**
+     * JButton used to start simulation without GUI
+     */
     JButton ghostButton;
+    /**
+     * JFormattedTextField used to set number of initial villagers
+     */
     JFormattedTextField villNumber;
+    /**
+     * JFormattedTextField used to set number of initial vampiers
+     */
     JFormattedTextField vampNumber;
+    /**
+     * JFormattedTextField used to set number of initial hunters
+     */
     JFormattedTextField huntNumber;
-
+    /**
+     * JSliders used to set specific parameters
+     * powerSlider sets initial power of vampire
+     * speedSlider sets time acceleration of simulation
+     * unitSlider sets probability of transforming villager to vampire
+     * huntPowerSlider sets initial power of hunters
+     * huntUnitSlider sets probability of transforming villager to hunter
+     */
     JSlider powerSlider,speedSlider,unitSlider,huntPowerSlider,huntUnitSlider;
+    /**
+     * JLabels showing current values set by user
+     * powerLabel shows vampire power
+     * huntPowerLabel shows hunter power
+     */
     JLabel powerLabel,huntPowerLabel;
+    /**
+     * JLabel showing current values and descriptions
+     * vampLabel,villLabel and huntLabel shows what field is bound to which entity
+     * unitLabel shows probability of transforming into vampire
+     * speedLabel shows time acceleration
+     * huntUnitLabel shows probability of transforming into hunter.
+     */
     JLabel vampLabel, villLabel, huntLabel, unitLabel, speedLabel, huntUnitLabel;
 
+    /**
+     * Constructor of this class.
+     * Setting whole GUI of main menu.
+     * Adding all fields and makes them visible.
+     */
     Menu()
     {
         setTitle("Vampires vs. Hunters - SIM");
@@ -173,6 +218,10 @@ public class Menu extends JFrame implements ActionListener, ChangeListener
     }
 
 
+    /**
+     * ActionListener, triggering different actions depending on which button was pressed.
+     * @param e the event to be processed
+     */
     @Override
     public void actionPerformed(ActionEvent e)
     {
@@ -194,7 +243,10 @@ public class Menu extends JFrame implements ActionListener, ChangeListener
 
     }
 
-
+    /**
+     * Method used to refresh values set by user to properly show them.
+     * @param e  a ChangeEvent object
+     */
     @Override
     public void stateChanged(ChangeEvent e)
     {

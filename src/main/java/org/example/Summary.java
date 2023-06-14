@@ -12,15 +12,57 @@ import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
-public class Summary extends JFrame implements ActionListener, ChangeListener
+/**
+ * Class used to show last window with results of simulation and allowing to save results.
+ */
+public class Summary extends JFrame implements ActionListener
 {
+    /**
+     * Button responsible for saving result to file.
+     */
     JButton saveButton;
+    /**
+     * Button used to exit application.
+     */
     JButton exitButton;
+    /**
+     * Labels showing days and time (in-sim) of simulation.
+     */
     JLabel timeLabel, daysLabel;
+    /**
+     * Labels showing number of killed vampires, hunters, villagers, transformed hunters, vampires, and winning side.
+     */
     JLabel vampKilledLabel, villKilledLabel, huntKilledLabel, vampTransformLabel, huntTransformLabel, winningSide;
 
-    int totalTimer,days,killedVillagers,killedVamps,killedHuners,transHunt,transVamp;
+    /**
+     *  integers used to save total simulation time
+     */
+    int totalTimer;
+    /**
+     * Lists containgin all historical data used for statistic purpose. Can be saved to file.
+     */
     ArrayList<Integer> villHistogram,vampHistogram,huntHistogram,vampkillHistogram,villkillHistogram,huntkillHistogram,vamptransHistogram,hunttransHistogram,dayHistogram;
+
+    /**
+     * Default constructor responsible for showing window and setting whole GUI in it.
+     * @param totalTimer total sim time
+     * @param days total days in sim
+     * @param killedVillagers number of killed villagers
+     * @param killedVamps number of killed vampires
+     * @param killedHunters number of killed hunters
+     * @param transformedToHunt number of transformed into hunters
+     * @param transformedToVamp number of transformd into vampires
+     * @param winners who is winner
+     * @param villHistogram list with population of villagers in each day
+     * @param vampHistogram list with population of vampires in each day
+     * @param huntHistogram list with population of hunters in each day
+     * @param villkillHistogram list with killed villagers in each day
+     * @param vampkillHistogram list with killed vampires in each day
+     * @param huntkillHistogram list with killed hunters in each day
+     * @param vampTransHistogram list with transformed into vampires in each day
+     * @param huntTransHistogram list with transformed into hunters in each day
+     * @param dayHistory list with days history
+     */
     Summary(int totalTimer, int days, int killedVillagers, int killedVamps, int killedHunters, int transformedToHunt, int transformedToVamp, String winners, ArrayList<Integer> villHistogram, ArrayList<Integer> vampHistogram, ArrayList<Integer> huntHistogram, ArrayList<Integer> villkillHistogram, ArrayList<Integer> vampkillHistogram, ArrayList<Integer> huntkillHistogram, ArrayList<Integer> vampTransHistogram, ArrayList<Integer> huntTransHistogram, ArrayList<Integer> dayHistory)
     {
         this.villHistogram = villHistogram;
@@ -102,10 +144,15 @@ public class Summary extends JFrame implements ActionListener, ChangeListener
 
         setVisible(true);
     }
+
+    /**
+     * Method used to trigger action after button was pressed
+     * @param e the event to be processed
+     */
     @Override
     public void actionPerformed(ActionEvent e) {
 
-        if(e.getSource() == saveButton)
+        if(e.getSource() == saveButton) //if savebutton was pressed, generate new file name and try to save data into it.
         {
             String timestamp = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").format(new java.util.Date());
             String fileName = "SIM_RESULT_"+timestamp+".txt";
@@ -152,15 +199,11 @@ public class Summary extends JFrame implements ActionListener, ChangeListener
 
 
         }
-        if(e.getSource() == exitButton)
+        if(e.getSource() == exitButton) // if exit button was pressed, dispose this window and end application.
         {
             dispose();
             System.exit(0);
         }
     }
 
-    @Override
-    public void stateChanged(ChangeEvent e) {
-
-    }
 }

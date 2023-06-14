@@ -13,6 +13,7 @@ public class Menu extends JFrame implements ActionListener, ChangeListener
 {
     JButton startButton;
     JButton exitButton;
+    JButton ghostButton;
     JFormattedTextField villNumber;
     JFormattedTextField vampNumber;
     JFormattedTextField huntNumber;
@@ -27,8 +28,6 @@ public class Menu extends JFrame implements ActionListener, ChangeListener
         setResizable(false);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(1030,1030);
-//        pack();
-
         setLayout(null);
         setLocationRelativeTo(null);
 
@@ -46,6 +45,13 @@ public class Menu extends JFrame implements ActionListener, ChangeListener
         exitButton.setText("Exit");
 
         add(exitButton);
+
+        ghostButton = new JButton();
+        ghostButton.setBounds(400,800,200,50);
+        ghostButton.addActionListener(this);
+        ghostButton.setText("Start Simulation (NO GUI)");
+
+        add(ghostButton);
 
 // __________________________________________________ TEXTFIELDS ______________________________________________
         NumberFormat numberFormat = NumberFormat.getInstance();
@@ -163,10 +169,6 @@ public class Menu extends JFrame implements ActionListener, ChangeListener
         add(vampLabel);
         add(huntLabel);
 
-
-
-
-
         setVisible(true);
     }
 
@@ -183,6 +185,11 @@ public class Menu extends JFrame implements ActionListener, ChangeListener
         {
             dispose();
             System.exit(0);
+        }
+        if(e.getSource() == ghostButton)
+        {
+            dispose();
+            new GhostSim((int) villNumber.getValue(),(int) vampNumber.getValue(),(int) huntNumber.getValue(),powerSlider.getValue(), unitSlider.getValue(),speedSlider.getValue(),huntPowerSlider.getValue(),huntUnitSlider.getValue());
         }
 
     }

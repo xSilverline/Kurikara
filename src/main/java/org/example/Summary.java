@@ -143,7 +143,8 @@ public class Summary extends JFrame implements ActionListener, ChangeListener
                 writer.close();
 
 
-
+                dispose();
+                System.exit(0);
 
             } catch (IOException ex) {
                 throw new RuntimeException(ex);

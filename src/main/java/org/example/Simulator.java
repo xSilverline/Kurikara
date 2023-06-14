@@ -1,6 +1,7 @@
 package org.example;
 //TODO Stworzenie listy postaci, nadanie im cech wg ustawien z maina, ustawienie dnia i nocy. jakieś liczniki może ?
 
+import javax.swing.*;
 import java.util.ArrayList;
 
 public class Simulator extends Thread
@@ -37,12 +38,12 @@ public class Simulator extends Thread
     int killedVamps;
     int killedVillagers;
     int killedHunters;
-    SimFrame frame;
+    JFrame frame;
 
     Map map;
 
 
-    Simulator(GUI gui,Map map, int numOfVamps, int numOfHunt, int numOfVill,int power,int unit,int speed,int huntPower,int huntUnit,SimFrame frame)
+    Simulator(GUI gui, Map map, int numOfVamps, int numOfHunt, int numOfVill, int power, int unit, int speed, int huntPower, int huntUnit, JFrame frame)
     {
         this.frame = frame;
         this.map = map;
@@ -64,6 +65,16 @@ public class Simulator extends Thread
         timer = 0;
         days = 0;
 
+    }
+    public synchronized void nukeIt()
+    {
+        frame.dispose();
+        new Summary(totalTimer,days,killedVillagers,killedVamps,killedHunters,transformedToHunt,transformedToVamp,winners,villHistogram,vampHistogram,huntHistogram,villkillHistogram,vampkillHistogram,huntkillHistogram,vampTransHistogram,huntTransHistogram,dayHistory);
+        try {
+            wait();
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Override
@@ -131,7 +142,8 @@ public class Simulator extends Thread
             vampList.removeAll(vampTrash);
             vampTrash.clear();
             vampClone.clear();
-            screen.setxy(vampList, huntList, villList);
+            if(screen != null)
+                screen.setxy(vampList, huntList, villList,timer,days);
             vampHistogram.add(vampList.size());
             huntHistogram.add(huntList.size());
             villHistogram.add(villList.size());
@@ -143,7 +155,28 @@ public class Simulator extends Thread
             dayHistory.add(days);
             timer++;
             totalTimer++;
-            if(timer == 3600)
+            if(timer>=360 && timer < 840)
+            {
+                if(timer%24 == 0) {
+                    assert screen != null;
+                    screen.setBrighter();
+                }
+
+            }
+            if(timer>=840 && timer < 1320)
+            {
+                if(timer%24 == 0) {
+                    assert screen != null;
+                    screen.setDarker();
+                }
+
+            }
+            if(timer<=360 || timer >= 1320)
+            {
+                assert screen != null;
+                screen.setNight();
+            }
+            if(timer == 1440)
             {
                 days++;
                 timer = 0;
@@ -155,7 +188,6 @@ public class Simulator extends Thread
                 {
                     h.recruitments =1;
                 }
-                System.err.println(days);
             }
             if((villList.isEmpty() && huntList.isEmpty())|| vampList.isEmpty())
             {
@@ -164,7 +196,7 @@ public class Simulator extends Thread
                 System.out.println("K-Hunts: "+killedHunters);
                 System.out.println("T-Hunts: "+transformedToHunt);
                 System.out.println("K-Vills: "+killedVillagers);
-                System.out.println("Days: "+totalTimer);
+                System.out.println("Days: "+days);
 
                 if(huntList.isEmpty())
                     winners = "Wampiry";
@@ -190,7 +222,8 @@ public class Simulator extends Thread
                     catch (Exception E) {
                         throw new RuntimeException(E);
                     }
-            screen.repaintCanva();
+            if(screen != null)
+                screen.repaintCanva();
 
         }
     }
@@ -212,7 +245,7 @@ public class Simulator extends Thread
                 currentTile.addHunter(newHunter);
 
                 transformedToHunt++;
-//                System.err.println("REKRU!!!");
+
             }
         }
 
@@ -229,7 +262,7 @@ public class Simulator extends Thread
                 {
                     currentTile.removeHunter(attackedHunter);
                     huntList.remove(attackedHunter);
-//
+
                     Vampire newVamp = new Vampire(v.unit, (v.power+attackedHunter.power)/2,vampList.size()+vampClone.size());
                     newVamp.transofrms=0;
                     vampClone.add(newVamp);
@@ -263,7 +296,6 @@ public class Simulator extends Thread
                     vampClone.add(newVamp);
                     currentTile.addVampier(newVamp);
 
-//                    System.err.println("Transformer! "+vampList.size()+" "+vampClone.size());
                     transformedToVamp++;
                 }
                 if(attackedVillager.type == 3)
@@ -271,7 +303,6 @@ public class Simulator extends Thread
                     currentTile.removeVillager(attackedVillager);
                     villList.remove(attackedVillager);
 
-//                    System.err.println("Deded! "+villList.size());
                     killedVillagers++;
                 }
             }
